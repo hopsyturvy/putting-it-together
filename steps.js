@@ -124,5 +124,6 @@ function checkanswer() {
 
     }
     document.getElementById("answer").style.visibility = "visible";
+    document.getElementById("list").style.pointerEvents = "none";
 }
 
