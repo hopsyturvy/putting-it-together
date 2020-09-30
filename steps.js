@@ -35,6 +35,22 @@ for (var i = 0; i < (answers.length); i++) {
     document.getElementById("columns").insertBefore(node, document.getElementById("hidden"));
 }
 
+document.getElementById('hint').setAttribute('onclick', 'getHint()');
+
+function getHint() {
+    let checks = document.getElementsByClassName("column");
+    for (var i = 0; i < (answers.length); i++) {
+
+        if (checks[i].innerHTML == answers[i]) {
+            continue;
+        } else {
+            checks[i].style.borderColor = "red"
+            checks[i+1].style.borderColor = ""
+        }
+
+    }
+}
+
 function handleDragStart(e) {
     // Target (this) element is the source node.
     dragSrcEl = this;
@@ -114,6 +130,11 @@ var cols = document.querySelectorAll('#columns .column');
 function checkanswer() {
 
     let checks = document.getElementsByClassName("column");
+
+    for (var i = 0; i < (answers.length); i++) {
+        checks[i].style.borderColor = "";
+        }
+
     for (var i = 0; i < (answers.length); i++) {
 
         if (checks[i].innerHTML == answers[i]) {
@@ -125,5 +146,6 @@ function checkanswer() {
     }
     document.getElementById("answer").style.visibility = "visible";
     document.getElementById("list").style.pointerEvents = "none";
+    document.getElementById("nav").style.display = "none";
 }
 

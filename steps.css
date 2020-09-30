@@ -105,6 +105,7 @@ li.invisible:hover {
 
   #list {
     float: left;
+    padding-left: 3rem;
   }
   #instructions {
     padding: 1rem 3rem;
@@ -133,3 +134,30 @@ li.invisible:hover {
     line-height: 1.5rem;
     visibility: hidden;
   }
+
+  #nav {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 24px;
+    font-size: 0;
+    text-align: right;
+}
+
+button#hint {
+
+  background-color: #36394D;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 0;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  height: 40px;
+  padding: 0 16px;
+  font-family: Source Sans Pro;
+  float: right;
+}
