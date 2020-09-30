@@ -123,6 +123,6 @@ function checkanswer() {
         }
 
     }
-    alert("correct")
+    document.getElementById("answer").style.visibility = "visible";
 }
 
