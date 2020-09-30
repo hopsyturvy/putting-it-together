@@ -1,0 +1,60 @@
+body {
+  column-count: 1;
+}
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+  }
+  
+  #columns {
+    list-style-type: none;
+  }
+  
+  li {
+    width: 262px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    text-align: center;
+    cursor: move;
+  }
+  li.column {
+    height: 20px;
+    width: 350px;
+    color: black;
+    background-color: #ccc;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    border: 2px solid #666666;
+  }
+  
+  .column.dragElem {
+    opacity: 0.4;
+  }
+
+li.invisible {
+border: 2px solid transparent;
+background-color: transparent;
+color: transparent;
+cursor: default;
+user-select: none;
+}
+
+  .over::after {
+    content: "";
+    display: inline-block;
+    width: 262px;
+    height: 0px;
+    z-index: 2;
+    position: relative;
+    top: -44px;
+    left: -6px;
+    border-top: 6px solid #ccc;
+    opacity: 1;
+  }
+
