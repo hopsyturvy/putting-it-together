@@ -260,7 +260,7 @@ button.close {
   min-width: 10px;
 }
 
-#infomodal {
+.infobox {
   position: absolute;
   
   right:10px;
@@ -297,6 +297,7 @@ button.close {
 }
 
 .modalflash {
+  display: block;
   animation: flash 3s;
 }
 

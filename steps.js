@@ -207,7 +207,6 @@ function checkanswer() {
 
 function closeModal(){
     document.getElementById("startoverlay").style.display = "none";
-    document.getElementById("infomodal").style.display="block";
     document.getElementById("infomodal").classList.add("modalflash");
     setTimeout(function(){
         document.getElementById("infomodal").style.display = "none";
