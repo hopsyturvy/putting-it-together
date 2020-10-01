@@ -10,25 +10,57 @@
 </head>
 
 <body>
-  <div id="list">
-    <ul id="columns">
 
-      <li class="invisible column" id="hidden">For some reason this needs text to work</li>
+  <div id="startoverlay" class="overlay">
+    <div class="modal">
+      <div class="header">
+        Put these steps in the correct order
+      </div>
+      <p>Each of the steps in making an espresso is listed on the left hand side. Drag and drop these steps into the
+        spaces on the right hand side in the correct order.</p>
+      <p>If you get stuck, press the 'HINT' button on the right, and any incorrect answers will be highlighted in
+        red.</p>
+      <p>Close this window to continue.</p>
+
+      <button id="close">
+        <svg width="28px" height="28px" viewBox="0 0 24 24">>
+          <path stroke="#36394D" stroke-width="4" fill="none" d="M6.25,6.25,17.75,17.75" />
+          <path stroke="#36394D" stroke-width="4" fill="none" d="M6.25,17.75,17.75,6.25" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="winoverlay" class="overlay">
+    <div class="modal">
+      <div id="correct">
+        Correct!
+      </div>
+      Please click on 'COMPLETE & CONTINUE' below to proceed.
+    </div>
+  </div>
+  <div class="flexcontainer">
+    <div class="spacer"></div>
+    <div class="list">
+    <ul class="columns" id="answerlist">
+
     </ul>
   </div>
-  <div id="instructions">
-    <div id="header">
-      Put these steps in the correct order
-    </div>
-    Each of the steps in making an espresso are listed on the left. Drag and drop these steps into the correct order.
-    <div id="answer">
-      Correct!
-    </div>
 
-    <div id="nav">
-      <button id="hint">HINT</button>
-    </div>
+<div class="spacer"></div>
 
+  <div class="list">
+    <ul class="columns" id="holderlist">
+
+    </ul>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="hint">
+    <button id="hint">HINT</button>
+  </div>
+  <div class="spacer"></div>
   </div>
   <script src="steps.js"></script>
 </body>

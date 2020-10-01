@@ -1,18 +1,20 @@
 var dragSrcEl = null;
+
 var answers = [
     "Remove portafilter from group",
     "Flush the group",
-    "Knock out old coffee",
-    "Wipe basket clean and dry",
-    "Dose the correct amount of coffee",
-    "Distribute coffee evenly",
-    "Tamp consistently and level",
-    "Wipe the rim and ears of the portafilter",
-    "Insert the portafilter and immediately brew",
-    "Watch the flow and stop the pump",
-    "Clean the portafilter and return it to the group"
+       "Knock out old coffee and wipe the basket",
+       "Dose the correct amount of coffee",
+       "Distribute coffee evenly",
+       "Tamp consistently and level",
+       "Wipe the rim and ears of the portafilter",
+       "Insert the portafilter and immediately brew",
+       "Watch the flow and stop the pump",
+       "Clean the portafilter and return it to the group"
 ];
-var random = [6,
+
+var random = [
+    6,
     2,
     5,
     8,
@@ -20,66 +22,129 @@ var random = [6,
     0,
     4,
     3,
-    10,
     9,
     1,
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+];
 
-for (var i = 0; i < (answers.length); i++) {
+addAnswers();
+setDnDHandlers();
+document.getElementById('hint').setAttribute('onclick', 'getHint()');
+document.getElementById('close').setAttribute('onclick', 'closeModal()');
 
-    var node = document.createElement("LI");
-    var textnode = document.createTextNode(answers[random[i]]);
-    node.appendChild(textnode);
-    node.className = "column"
-    node.setAttribute('draggable', 'true')
-    document.getElementById("columns").insertBefore(node, document.getElementById("hidden"));
+function setDnDHandlers() {
+    var cols = document.querySelectorAll('.answer');
+    [].forEach.call(cols, addDragStart);
+
+    var slots = document.querySelectorAll('.holder');
+    [].forEach.call(slots, addDragEnd);
 }
 
-document.getElementById('hint').setAttribute('onclick', 'getHint()');
+function addDragStart(elem) {
+    elem.addEventListener('dragstart', handleDragStart, false);
+    elem.addEventListener('dragleave', handleDragLeave, false);
 
-function getHint() {
-    let checks = document.getElementsByClassName("column");
+}
+
+function addDragEnd(elem) {
+    elem.addEventListener('dragenter', handleDragEnter, false)
+    elem.addEventListener('dragover', handleDragOver, false);
+    elem.addEventListener('dragleave', handleDragLeave, false);
+    elem.addEventListener('drop', handleDrop, false);
+    elem.addEventListener('dragend', handleDragEnd, false);
+}
+
+function addAnswers() {
+
+
     for (var i = 0; i < (answers.length); i++) {
 
-        if (checks[i].innerHTML == answers[i]) {
-            continue;
-        } else {
-            checks[i].style.borderColor = "red"
-            checks[i+1].style.borderColor = ""
-        }
+        var divnode = document.createElement("DIV");
+        var textnode = document.createTextNode(answers[random[i]]);
+        divnode.appendChild(textnode);
+        divnode.className = "answer";
+        divnode.setAttribute('draggable', 'true');
+
+        var linode = document.createElement("LI");
+        linode.className = "holder";
+        linode.appendChild(divnode);
+        document.getElementById("answerlist").appendChild(linode);
+
+        var holdernode = document.createElement("LI");
+        holdernode.className = "holder";
+        document.getElementById("holderlist").appendChild(holdernode);
+
 
     }
 }
+
+
+function getHint() {
+
+    var reset = document.querySelectorAll('.wrong');
+    reset.forEach(element => element.classList.remove("wrong"));
+
+    setTimeout(function(){
+
+    
+    let checks = document.getElementById("holderlist").querySelectorAll(".holder");
+
+
+    for (var i = 0; i < (answers.length); i++) {
+
+        if (checks[i].childNodes[0]) {
+
+
+        
+
+            if (checks[i].childNodes[0].innerHTML != answers[i]) {
+                checks[i].childNodes[0].classList.add("wrong")
+            }
+
+        }
+
+
+    }
+
+    },50)
+
+
+
+}
+
 
 function handleDragStart(e) {
     // Target (this) element is the source node.
     dragSrcEl = this;
 
-    e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.outerHTML);
 
+    e.dataTransfer.effectAllowed = 'move';
+
     this.classList.add('dragElem');
+
 }
+
 function handleDragOver(e) {
     if (e.preventDefault) {
         e.preventDefault(); // Necessary. Allows us to drop.
     }
     this.classList.add('over');
 
-    e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-
-    return false;
+    e.dataTransfer.dropEffect = 'move';
 }
 
 function handleDragEnter(e) {
-    // this / e.target is the current hover target.
+
 }
 
 function handleDragLeave(e) {
-    this.classList.remove('over');  // this / e.target is previous target element.
+    this.classList.remove('over');
+    this.classList.remove('dragElem');
 }
 
 function handleDrop(e) {
+    e.preventDefault();
     // this/e.target is current target element.
 
     if (e.stopPropagation) {
@@ -88,19 +153,15 @@ function handleDrop(e) {
 
     // Don't do anything if dropping the same column we're dragging.
     if (dragSrcEl != this) {
-        // Set the source column's HTML to the HTML of the column we dropped on.
-        //alert(this.outerHTML);
-        //dragSrcEl.innerHTML = this.innerHTML;
-        //this.innerHTML = e.dataTransfer.getData('text/html');
-        this.parentNode.removeChild(dragSrcEl);
-        var dropHTML = e.dataTransfer.getData('text/html');
-        this.insertAdjacentHTML('beforebegin', dropHTML);
-        var dropElem = this.previousSibling;
-        addDnDHandlers(dropElem);
+        // Set the source column's HTML to the HTML of the column we dropped on. dragSrcEl is the source element, 'this' is the target
 
+        dragSrcEl.outerHTML = this.innerHTML;
+        this.innerHTML = e.dataTransfer.getData('text/html');
+
+        setDnDHandlers();
     }
     this.classList.remove('over');
-    return false;
+    checkanswer();
 }
 
 function handleDragEnd(e) {
@@ -109,43 +170,37 @@ function handleDragEnd(e) {
     this.classList.remove('dragElem');
     checkanswer();
 
-    /*[].forEach.call(cols, function (col) {
-      col.classList.remove('over');
-    });*/
 }
 
-function addDnDHandlers(elem) {
-    elem.addEventListener('dragstart', handleDragStart, false);
-    elem.addEventListener('dragenter', handleDragEnter, false)
-    elem.addEventListener('dragover', handleDragOver, false);
-    elem.addEventListener('dragleave', handleDragLeave, false);
-    elem.addEventListener('drop', handleDrop, false);
-    elem.addEventListener('dragend', handleDragEnd, false);
-
-}
-
-var cols = document.querySelectorAll('#columns .column');
-[].forEach.call(cols, addDnDHandlers);
 
 function checkanswer() {
 
-    let checks = document.getElementsByClassName("column");
+    var reset = document.querySelectorAll('.wrong');
+    reset.forEach(element => element.classList.remove("wrong"))
+    
 
-    for (var i = 0; i < (answers.length); i++) {
-        checks[i].style.borderColor = "";
+    let checks = document.getElementById("holderlist").querySelectorAll(".answer");
+    
+    if (checks.length == answers.length) {
+
+        for (var i = 0; i < (answers.length); i++) {
+
+            if (checks[i].innerHTML == answers[i]) {
+                continue;
+            } else {
+                return;
+            }
+
         }
 
-    for (var i = 0; i < (answers.length); i++) {
-
-        if (checks[i].innerHTML == answers[i]) {
-            continue;
-        } else {
-            return;
-        }
-
+        correct();
     }
-    document.getElementById("answer").style.visibility = "visible";
-    document.getElementById("list").style.pointerEvents = "none";
-    document.getElementById("nav").style.display = "none";
 }
 
+function closeModal(){
+    document.getElementById("startoverlay").style.display = "none"
+}
+
+function correct(){
+    document.getElementById("winoverlay").style.display = "flex"
+}
