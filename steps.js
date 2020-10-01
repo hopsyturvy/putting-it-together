@@ -30,7 +30,9 @@ var random = [
 addAnswers();
 setDnDHandlers();
 document.getElementById('hint').setAttribute('onclick', 'getHint()');
-document.getElementById('close').setAttribute('onclick', 'closeModal()');
+document.getElementById('closeinfo').setAttribute('onclick', 'closeModal()');
+document.getElementById('closehint').setAttribute('onclick', 'closeHint()');
+document.getElementById('info').setAttribute('onclick', 'showInfo()');
 
 function setDnDHandlers() {
     var cols = document.querySelectorAll('.answer');
@@ -80,13 +82,15 @@ function addAnswers() {
 
 
 function getHint() {
-
+    document.getElementById("hint").classList.remove("click");
     var reset = document.querySelectorAll('.wrong');
     reset.forEach(element => element.classList.remove("wrong"));
 
     setTimeout(function(){
 
     
+    document.getElementById("hint").classList.add("click")
+
     let checks = document.getElementById("holderlist").querySelectorAll(".holder");
 
 
@@ -104,6 +108,10 @@ function getHint() {
         }
 
 
+    }
+
+    if(document.querySelectorAll('.wrong').length==0) {
+        showHint();
     }
 
     },50)
@@ -198,9 +206,25 @@ function checkanswer() {
 }
 
 function closeModal(){
-    document.getElementById("startoverlay").style.display = "none"
+    document.getElementById("startoverlay").style.display = "none";
+    document.getElementById("infomodal").classList.add("modalflash");
+    setTimeout(function(){
+        document.getElementById("infomodal").style.display = "none";
+    },4000)
+}
+
+function showHint(){
+    document.getElementById("hintoverlay").style.display = "flex";
+}
+
+function closeHint(){
+    document.getElementById("hintoverlay").style.display = "none";
 }
 
 function correct(){
     document.getElementById("winoverlay").style.display = "flex"
+}
+
+function showInfo(){
+    document.getElementById("startoverlay").style.display = "flex";
 }

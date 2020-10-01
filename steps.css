@@ -135,6 +135,7 @@ li {
 
 }
 
+/*
 button#hint {
 
   background-color: #36394D;
@@ -149,9 +150,50 @@ button#hint {
   line-height: 1.5rem;
   text-transform: uppercase;
   height: 40px;
+  width: 70px;
   padding: 0 16px;
   font-family: Source Sans Pro;
   float: right;
+  clear: right;
+}
+*/
+
+button.help {
+
+  background-color: transparent;
+    color: #CACCD6;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    cursor: pointer;
+    border: 3px solid #CACCD6;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.5rem;
+    height: 30px;
+    font-family: Source Sans Pro;
+    width: 30px;
+    box-sizing: border-box;
+    margin-top: 8px;
+    overflow: hidden;
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 21px;
+      clear: right;
+      outline:none;
+}
+
+button.help.click {
+  outline:none;
+  animation: outline 2s;
+}
+
+
+
+
+@keyframes outline {
+  0% {border: 3px solid #36394D;}
+  100% {border: 3px solid #CACCD6;}
 }
 
 .overlay {
@@ -178,7 +220,7 @@ button#hint {
   box-shadow: 2px 2px 7px -1px #36394D;
 }
 
-button#close {
+button.close {
   background: none;
   border: none;
   padding: 0;
@@ -216,4 +258,54 @@ button#close {
 
 .spacer {
   min-width: 10px;
+}
+
+#infomodal {
+  position: absolute;
+  
+  right:10px;
+  text-align: right;
+  top: 133px;
+
+  background-color: white;
+  border: 1px;
+  border-radius: 3px;
+  padding: 10px 20px;
+  z-index: 12;
+  box-shadow: 2px 2px 7px -1px #36394D;
+  opacity: 0;
+}
+
+.pointer {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  overflow: hidden;
+  right:10px;
+  top: -30px;
+
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  z-index: 12;
+}
+
+#arrow {
+  
+  filter: drop-shadow (2px 2px 7px -1px #36394D)
+}
+
+.modalflash {
+  animation: flash 3s;
+}
+
+@keyframes flash {
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  80% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+#hintoverlay {
+  display: none;
 }
