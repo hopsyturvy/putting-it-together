@@ -274,6 +274,7 @@ button.close {
   z-index: 12;
   box-shadow: 2px 2px 7px -1px #36394D;
   opacity: 0;
+  display: none;
 }
 
 .pointer {
