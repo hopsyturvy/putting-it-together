@@ -32,6 +32,7 @@ setDnDHandlers();
 document.getElementById('hint').setAttribute('onclick', 'getHint()');
 document.getElementById('closeinfo').setAttribute('onclick', 'closeModal()');
 document.getElementById('closehint').setAttribute('onclick', 'closeHint()');
+document.getElementById('closeok').setAttribute('onclick', 'closeOK()');
 document.getElementById('info').setAttribute('onclick', 'showInfo()');
 
 function setDnDHandlers() {
@@ -110,8 +111,10 @@ function getHint() {
 
     }
 
-    if(document.querySelectorAll('.wrong').length==0) {
+    if (answerexists=="false"){
         showHint();
+    } else if (document.querySelectorAll('.wrong').length==0) {
+        showOK();
     }
 
     },50)
@@ -219,6 +222,14 @@ function showHint(){
 
 function closeHint(){
     document.getElementById("hintoverlay").style.display = "none";
+}
+
+function showOK(){
+    document.getElementById("okoverlay").style.display = "flex";
+}
+
+function closeOK(){
+    document.getElementById("okoverlay").style.display = "none";
 }
 
 function correct(){

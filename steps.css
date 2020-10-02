@@ -311,3 +311,7 @@ button.close {
 #hintoverlay {
   display: none;
 }
+
+#okoverlay {
+  display: none;
+}
