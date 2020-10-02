@@ -86,6 +86,7 @@ function getHint() {
     document.getElementById("hint").classList.remove("click");
     var reset = document.querySelectorAll('.wrong');
     reset.forEach(element => element.classList.remove("wrong"));
+    let answerexists='false';
 
     setTimeout(function(){
 
@@ -98,6 +99,7 @@ function getHint() {
     for (var i = 0; i < (answers.length); i++) {
 
         if (checks[i].childNodes[0]) {
+            answerexists='true';
 
 
         
